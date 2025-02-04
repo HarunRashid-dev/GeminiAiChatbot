@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 class HomeViewModel: ViewModel() {
 
     private val _uiState: MutableStateFlow<HomeUiState> = MutableStateFlow(HomeUiState.Initial)
-    private val uiState=  _uiState.asStateFlow()
+    val uiState=  _uiState.asStateFlow()
 
     private var generativeModel: GenerativeModel
 
