@@ -24,7 +24,7 @@ init{
         temperature = 0.70f
     }
 
-    generativeModel = GenerativeModel(
+   generativeModel = GenerativeModel(
         modelName = "gemini-pro-vision",
         apiKey = BuildConfig.apiKey,
         generationConfig = config

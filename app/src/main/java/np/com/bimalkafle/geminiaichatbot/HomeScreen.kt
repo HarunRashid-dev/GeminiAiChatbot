@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -31,18 +30,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.unit.dp
-import org.tensorflow.lite.schema.Padding
-import java.lang.reflect.Modifier
 import androidx.compose.foundation.layout.padding
-import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
-import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.*
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-
-
-
 
 
 @Composable
@@ -82,7 +74,7 @@ fun HomeScreen(
         },
         bottomBar = {
             Column {
-                Row(modifier = Modifier.padding(16.dp)){
+                Row(modifier = Modifier.padding(vertical = 16.dp), verticalAlignment = Alignment.CenterVertically){
                     IconButton(onClick = {
 
                     }, modifier = Modifier.padding(4.dp)) {
@@ -93,12 +85,14 @@ fun HomeScreen(
                         onValueChange = {
                         userQues = it
                     },
-                        placeholder = { Text(text="Upload Image and ask question") }
+                        label = { Text(text = "User Input")},
+                        placeholder = { Text(text="Upload Image and ask question") },
+                        modifier = Modifier.fillMaxWidth(0.84f)
                         )
 
                     IconButton(onClick = {
 
-                    }, modifier = Modifier.padding(4.dp)) {
+                    }, ) {
                         Icon(imageVector = Icons.Default.Send, contentDescription = "Send")
                     }
 
