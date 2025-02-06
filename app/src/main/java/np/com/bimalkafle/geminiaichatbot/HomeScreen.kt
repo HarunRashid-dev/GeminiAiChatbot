@@ -34,6 +34,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import org.tensorflow.lite.schema.Padding
 import java.lang.reflect.Modifier
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.*
+import androidx.compose.ui.unit.dp
+
+
+
+
 
 @Composable
 fun AppContent(viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
@@ -47,7 +57,10 @@ fun AppContent(viewModel: HomeViewModel = androidx.lifecycle.viewmodel.compose.v
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(uiState: HomeUiState = HomeUiState.Loading, onSendClicked: (String, List<Uri>) {
+fun HomeScreen(
+    uiState: HomeUiState = HomeUiState.Loading,
+    onSendClicked: (String, List<Uri>) -> Unit
+) {
 
     var userQues by rememberSaveable() {
         mutableStateOf("")
@@ -94,15 +107,16 @@ fun HomeScreen(uiState: HomeUiState = HomeUiState.Loading, onSendClicked: (Strin
         }
     ) {
 
-        Column (modifier = Modifier
-            .padding(it)
-            .padding(16.dp)
+        Column (
+            modifier = Modifier
+                .padding(it)
+                .padding(16.dp)
             .verticalScroll(rememberScrollState())
         ){
             when(uiState){
                 is HomeUiState.Initial ->{}
                 is HomeUiState.Loading -> {
-                    Box(contentAligment = Alignment.Center) {
+                    Box(contentAlignment = Alignment.Center) {
                         CircularProgressIndicator()
                     }
                 }
