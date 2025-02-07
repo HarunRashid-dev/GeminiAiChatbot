@@ -1,6 +1,10 @@
 package np.com.bimalkafle.geminiaichatbot
 
 import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,8 +37,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
+import com.google.ai.client.generativeai.type.content
 
 
 @Composable
@@ -62,6 +71,14 @@ fun HomeScreen(
         mutableStateListOf()
     }
 
+    val pickMediaLauncher =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.PickVisualMedia()) {
+            imageUri?.let {
+                imageUris.add(it)
+            }
+
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -75,8 +92,7 @@ fun HomeScreen(
         bottomBar = {
             Column {
                 Row(modifier = Modifier.padding(vertical = 16.dp), verticalAlignment = Alignment.CenterVertically){
-                    IconButton(onClick = {
-
+                    IconButton(onClick = {pickMediaLauncher.launch(pickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                     }, modifier = Modifier.padding(4.dp)) {
                         Icon(imageVector = Icons.Default.AddCircle, contentDescription = "Add Image")
                     }
@@ -91,9 +107,27 @@ fun HomeScreen(
                         )
 
                     IconButton(onClick = {
+                        if (userQues.isNotBlank()) {
+                            onSendClicked(userQues, imageUris)
+                        }
 
                     }, ) {
                         Icon(imageVector = Icons.Default.Send, contentDescription = "Send")
+                    }
+
+                    AnimatedVisibility(visible = imageUris.size > 0) {
+                        LazyRow(modifier = Modifier.padding(8.dp)) {
+                            items(imageUris) { imageUris ->
+                                Column {
+                                    AsyncImage(model = imageUris, contentDescription = "", Modifier.padding(4.dp).requiredSize(50.dp))
+                                    TextButton(onClick = {imageUris.remove(imageUri)}) {
+                                        Text(text = "Remove")
+
+                                    }
+                                }
+
+                            }
+                        }
                     }
 
                 }

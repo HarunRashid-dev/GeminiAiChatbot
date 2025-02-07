@@ -26,7 +26,7 @@ init{
 
    generativeModel = GenerativeModel(
         modelName = "gemini-pro-vision",
-        apiKey = BuildConfig.apiKey,
+        apiKey = np.com.bimalkafle.geminiaichatbot.BuildConfig.apiKey,
         generationConfig = config
     )
 }
